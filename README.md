@@ -9,6 +9,28 @@ Includes a simple browser **dashboard** for making predictions.
 
 ---
 
+## 🔄 Changes Made
+
+This project was adapted from a previous **Iris classifier** lab.  
+The following changes were made:
+
+1. **Dataset Update**  
+   - In `src/data.py`, the dataset was changed from **Iris** to **Wine** (`sklearn.datasets.load_wine`).  
+   - All **13 features** of the Wine dataset are now used instead of 4 Iris features.  
+
+2. **Model Training**  
+   - The model remains a **DecisionTreeClassifier**.  
+   - The trained model is now saved as `model/wine_model.pkl` instead of `iris_model.pkl`.  
+
+3. **Dashboard UI**  
+   - Added a simple **web dashboard** in `src/static/index.html`.  
+   - Users can enter 13 Wine features manually and get predictions displayed in the browser.  
+
+---
+
+
+---
+
 ## ⚙️ Setup
 
 ```bash
