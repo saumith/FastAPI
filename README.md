@@ -1,32 +1,28 @@
-# 🍷 Wine Classifier (FastAPI + Dashboard)
+# 🍷 FastAPI Wine Classifier
 
-## 📌 Overview
-This project is a FastAPI application that exposes a **DecisionTree Classifier** trained on the **Wine dataset** from `scikit-learn`.  
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-green)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.4%2B-orange)
 
-It provides:
-- A REST API endpoint `/predict` for predictions  
-- A simple dashboard (`/dashboard`) where users can enter all 13 Wine features and see the prediction in real time  
+A **FastAPI** service that serves a **DecisionTreeClassifier** trained on the **Wine** dataset (scikit-learn).  
+Includes a simple browser **dashboard** for making predictions.
 
 ---
 
-## 🔄 Changes Made
-1. **Dataset update**  
-   - Original lab used the Iris dataset.  
-   - Replaced it with the **Wine dataset** (`load_wine` from `scikit-learn`).  
+## ⚙️ Setup
 
-2. **Model saving**  
-   - Model is now stored in `model/wine_model.pkl` instead of `iris_model.pkl`.  
-   - Training process (DecisionTree Classifier) remains unchanged.  
+```bash
+# clone (SSH)
+git clone git@github.com:saumith/FastAPI.git
+cd FastAPI
 
-3. **API schema (`main.py`)**  
-   - Pydantic model updated to include all **13 Wine features**.  
-   - `/predict` endpoint adjusted to accept these fields.  
+# (optional) create & activate a venv
+python3 -m venv fastapi_lab1_env
+source fastapi_lab1_env/bin/activate
 
-4. **Dashboard (`static/index.html`)**  
-   - Added a web-based UI served at `/dashboard`.  
-   - Users can enter **all 13 features** in a form.  
-   - Removed the old 4-feature preset → only the full 13-feature Wine option remains.  
-   - Displays prediction result directly on the page.  
+# install dependencies
+pip install -r requirements.txt
+```
 
 ---
 
@@ -36,18 +32,81 @@ It provides:
 ```bash
 cd src
 python train.py
+```
 
+### Start the API
+```bash
+uvicorn main:app --reload
+```
 
-Access the app
+### Open the app
+- Health: http://127.0.0.1:8000/
+- Docs:   http://127.0.0.1:8000/docs
+- UI:     http://127.0.0.1:8000/dashboard
 
-Health check → http://127.0.0.1:8000/
-
-API docs → http://127.0.0.1:8000/docs
-
-Dashboard → http://127.0.0.1:8000/dashboard
+---
 
 ## 🖼️ Result
 
 Here’s the dashboard in action with a sample prediction:
 
-![Result Dashboard](Result_Dashboard.png)
+![Result Dashboard](assets/Result_Dashboard.png)
+
+---
+
+## 🧠 Notes
+
+- **Dataset:** scikit-learn *Wine* (13 numerical features).
+- **Model:** `DecisionTreeClassifier` (training logic unchanged from Iris version).
+- **Target encoding:**
+  - `0 → Class_0`
+  - `1 → Class_1`
+  - `2 → Class_2`
+
+---
+
+## 📂 Project Structure
+
+```
+FastAPI/
+│── assets/
+│   └── Result_Dashboard.png
+│── model/
+│   └── wine_model.pkl
+│── src/
+│   ├── data.py          # loads Wine data & train/test split
+│   ├── train.py         # trains DecisionTree & saves model
+│   ├── predict.py       # loads model & predicts
+│   ├── main.py          # FastAPI app (+ /dashboard static mount)
+│   └── static/
+│       └── index.html   # dashboard UI
+│── requirements.txt
+│── README.md
+```
+
+---
+
+## 🚀 Submit / Update on GitHub
+
+```bash
+# from repo root
+git add src/ model/ assets/ README.md requirements.txt
+git commit -m "Assignment submission: FastAPI Wine Classifier with dashboard"
+git push -u origin main
+```
+
+---
+
+## 🔧 Troubleshooting
+
+- **Model dtype / pickle error:** retrain inside the same environment you serve from.
+  ```bash
+  rm -f model/wine_model.pkl
+  cd src && python train.py
+  ```
+- **Dashboard 404:** ensure `src/static/index.html` exists and `main.py` mounts:
+  ```python
+  from fastapi.staticfiles import StaticFiles
+  app.mount("/dashboard", StaticFiles(directory="static", html=True), name="dashboard")
+  ```
+- **Image not showing in README:** use a **relative path** (e.g., `assets/Result_Dashboard.png`), not a local absolute path.
