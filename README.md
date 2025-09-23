@@ -46,5 +46,8 @@ API docs → http://127.0.0.1:8000/docs
 
 Dashboard → http://127.0.0.1:8000/dashboard
 
-## Result
-![Alt text for accessibility](/Users/saumithdeversetty/Desktop/MLops/MLOps/Labs/API_Labs/FastAPI_Labs/Result_Dashboard.png.png)
+## 🖼️ Result
+
+Here’s the dashboard in action with a sample prediction:
+
+![Result Dashboard](Result_Dashboard.png)
