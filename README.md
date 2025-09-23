@@ -65,7 +65,7 @@ Here’s the dashboard in action with a sample prediction:
 
 ---
 
-## 📂 Project Structure
+## 📂 LAB Structure
 
 ```
 FastAPI/
