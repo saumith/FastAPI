@@ -26,7 +26,6 @@ The following changes were made:
    - Added a simple **web dashboard** in `src/static/index.html`.  
    - Users can enter 13 Wine features manually and get predictions displayed in the browser.  
 
----
 
 
 ---
