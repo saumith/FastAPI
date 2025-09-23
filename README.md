@@ -50,7 +50,7 @@ uvicorn main:app --reload
 
 Here’s the dashboard in action with a sample prediction:
 
-![Result Dashboard](assets/Result_Dashboard.png)
+![Result Dashboard](Result_Dashboard.png)
 
 ---
 
@@ -86,27 +86,4 @@ FastAPI/
 
 ---
 
-## 🚀 Submit / Update on GitHub
 
-```bash
-# from repo root
-git add src/ model/ assets/ README.md requirements.txt
-git commit -m "Assignment submission: FastAPI Wine Classifier with dashboard"
-git push -u origin main
-```
-
----
-
-## 🔧 Troubleshooting
-
-- **Model dtype / pickle error:** retrain inside the same environment you serve from.
-  ```bash
-  rm -f model/wine_model.pkl
-  cd src && python train.py
-  ```
-- **Dashboard 404:** ensure `src/static/index.html` exists and `main.py` mounts:
-  ```python
-  from fastapi.staticfiles import StaticFiles
-  app.mount("/dashboard", StaticFiles(directory="static", html=True), name="dashboard")
-  ```
-- **Image not showing in README:** use a **relative path** (e.g., `assets/Result_Dashboard.png`), not a local absolute path.
